@@ -135,7 +135,7 @@ def updateImage():
 
 path = r'C:\Coding\Anaconda\envs\GANSPACE\myScripts'
 st.title('Deep Daze Image Generator')
-st.session_state.input = st.text_input("Enter a prompt for the deep-daze model, then hit enter to run:", "")
+st.session_state.input = st.text_input("Enter a prompt for the model to base an image off of:", "")
 current_args = {
     #takes bout 1 min per epoch
     "lr":1e-3,
@@ -157,20 +157,29 @@ current_args = {
 #i want image width options, epochs, learning rate, save video
 # =============================================================================
 placeholder = st.expander(label='Parameters (Click here to expand/collapse)',expanded=True)
+title_ratio = [2, 2, 1]
+slider_ratio = [0.5, 1]
 
-colRate, colslider = placeholder.columns([0.2, 1])
-colRate.write("Learning Rate")
+placeholder.info("Note: A model running with default parameters takes approximately one minute per epoch")
+
+
+col1, col2, col3 = placeholder.columns(title_ratio)
+col2.write("Learning Rate")
+colRate, colslider = placeholder.columns(slider_ratio)
+
 current_args["lr"] =  10 ** (colslider.slider(label="",min_value=-8, max_value=-1, value=-3, step=1))
 colRate.success(current_args["lr"])
 
-colImageSize, colslider2 = placeholder.columns([0.2, 1])
-colImageSize.write("Image Width")
+col1, col2, col3 = placeholder.columns(title_ratio)
+col2.write("Image Width")
+colImageSize, colslider2 = placeholder.columns(slider_ratio)
+
 current_args["image_width"] = (colslider2.slider(label="",min_value=128, max_value=1024, value=256, step=128))
 colImageSize.success(str(current_args["image_width"]) + " x " + str(current_args["image_width"]) + " pixels")
 
-
-colEpochs, colslider3 = placeholder.columns([0.2, 1])
-colEpochs.write("Number of Epochs")
+col1, col2, col3 = placeholder.columns(title_ratio)
+col2.write("Number of Epochs")
+colEpochs, colslider3 = placeholder.columns(slider_ratio)
 current_args["epochs"] = (colslider3.slider(label="",min_value=1, max_value=10, value=1, step=1))
 colEpochs.success(str(current_args["epochs"]) + " Epochs")
 
@@ -179,6 +188,10 @@ if placeholder.checkbox("Save Video"):
     current_args["save_video"] = True
 
 
+if placeholder.checkbox("Open Image Folder"):
+    current_args["open_folder"] = True
+    
+    
 col1, col2 = st.columns([1,1])
 
 
@@ -196,7 +209,8 @@ if col1.button('Generate Image'):
 if col2.button('Delete Output Files'):
     deleteImages()
 
-   
+
+
 
 
 

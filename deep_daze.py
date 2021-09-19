@@ -372,7 +372,7 @@ class Imagine(nn.Module):
         super().__init__()
 
         if exists(seed):
-            tqdm.write(f'setting seed: {seed}')
+            stqdm.write(f'setting seed: {seed}')
             torch.manual_seed(seed)
             torch.cuda.manual_seed(seed)
             random.seed(seed)
@@ -661,11 +661,11 @@ class Imagine(nn.Module):
             self.open_folder = False
 
         try:
-            for epoch in stqdm(range(self.epochs), desc='epochs'):#edited
+            for epoch in stqdm(range(self.epochs), desc='Epochs'):#edited
                 pbar = stqdm(range(self.iterations), desc='iteration')#edited
                 for i in pbar:
                     _, loss = self.train_step(epoch, i)
-                    pbar.set_description(f'loss: {loss.item():.2f}')
+                    pbar.set_description(f'Loss: {loss.item():.2f}')
 
                 # Update clip_encoding per epoch if we are creating a story
                 if self.create_story:
