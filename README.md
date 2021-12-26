@@ -6,6 +6,9 @@ A streamlit driven GUI for the deep-daze model, an implementation of CLIP and SI
 2) navigate to project directory in command line and type "streamlit run main.py"
 3) Adjust parameters on streamlit page to change model behavior and enter a prompt
 4) Enjoy your generative image/video!
+## GUI
+
+![alt text](https://github.com/plehman2000/deep-daze-GUI/blob/main/example_images_deep_daze/gui.png?raw=true)
 
 ## Examples (produced with default parameters):
 ### "A nice cabin in the woods"
